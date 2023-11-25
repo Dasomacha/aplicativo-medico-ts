@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import { Paciente } from '../models/paciente';
+import { Paciente } from '../models/pacienteModel';
 
 // RequestHandler es responsable de manejar una solicitud HTTP, realizar alguna lógica de servidor (como interactuar con la base de datos), 
 // y finalmente enviar una respuesta al cliente

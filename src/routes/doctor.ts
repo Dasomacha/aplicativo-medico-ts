@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getDoctors, getDoctorById, createDoctor, updateDoctor, deleteDoctor } from '../controllers/doctor';
+import { getDoctors, getDoctorById, createDoctor, updateDoctor, deleteDoctor } from '../controllers/doctorController';
 
 const router = Router();
 

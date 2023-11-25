@@ -1,5 +1,6 @@
-import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
-import { Cita } from './cita';
+import { Table, Column, Model, DataType, ForeignKey, BelongsTo, HasMany } from 'sequelize-typescript';
+import { Cita } from './citaModel';
+import { Especialidad } from './especialidadModel';
 
 @Table({
   timestamps: false,
@@ -29,17 +30,28 @@ export class Doctor extends Model {
   @Column({
     type: DataType.STRING,
     allowNull: false,
+    validate: {
+      isEmail: true, // Validación de formato de correo electrónico
+    },
   })
   correo!: string;
 
+  @ForeignKey(() => Especialidad)
   @Column({
-    type: DataType.ENUM('medicina_interna', 'medicina_general'),
+    type: DataType.INTEGER,
     allowNull: false,
   })
-  especialidad!: string;
+  id_especialidad!: number;
 
-  // Se utiliza para indicar una relación de "uno a muchos". En este caso, está diciendo que un registro de este modelo puede 
-  // tener muchos registros `Cita` asociados. Al igual que con `@BelongsTo`, Sequelize utilizará esta información para unir las tablas correctamente cuando se realicen consultas.
+  @BelongsTo(() => Especialidad)
+  especialidad!: Especialidad;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  consultorio!: string;
+
   @HasMany(() => Cita)
   citas!: Cita[];
 }
