@@ -19,8 +19,9 @@ export class Especialidad extends Model {
     allowNull: false,
     unique: true,
   })
-  nombre!: string;
+  nombre_especialidad!: string;
 
   @HasMany(() => Doctor)
   doctores!: Doctor[];
 }
+

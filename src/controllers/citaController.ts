@@ -6,27 +6,34 @@ import { Cita } from '../models/citaModel';
 export const getCitas: RequestHandler = async (req, res, next) => {
   try {
     const citas = await Cita.findAll();
-    res.status(200).json({
-      message: 'Operación exitosa',
-      data: citas
-    });
+    res.status(200).json({ message: 'Operación exitosa', data: citas });
   } catch (error) {
     const err = error as Error;
     res.status(500).json({ message: 'Hubo un error al obtener las citas', error: err.message });
   }
 };
 
+/*
+export const getOneCita: RequestHandler = async (req, res, next) => {
+  try {
+    const { profesional, paciente, fecha } = req.body; // Asume que los IDs se pasan en el cuerpo de la solicitud
+    const cita = await Cita.findOne({ where: { fecha_hora: fecha, id_profesional: profesional, id_paciente: paciente } });
+    if (cita) {
+      res.status(200).json({ message: 'Operación exitosa', data: cita });
+    } else {
+      res.status(404).json({ message: 'Cita no encontrada' });
+    }
+  } catch (error) {
+    const err = error as Error;
+    res.status(500).json({ message: 'Hubo un error al obtener la cita', error: err.message });
+  }
+};
+*/
+
 export const getOneCita: RequestHandler = async (req, res, next) => {
   try {
     const { profesional, paciente, fecha } = req.query; // Asume que los IDs se pasan como parámetros de consulta en la URL
-    const cita = await Cita.findOne({
-      where:
-      {
-        fecha_hora: fecha,
-        id_profesional: profesional,
-        id_numeroCedula: paciente
-      }
-    });
+    const cita = await Cita.findOne({ where: { fecha_hora: fecha, id_profesional: profesional, id_numeroCedula: paciente } });
     if (cita) {
       res.status(200).json({ message: 'Operación exitosa', data: cita });
     } else {
@@ -81,26 +88,13 @@ export const deleteCita: RequestHandler = async (req, res, next) => {
   try {
     const { profesional, paciente, fecha } = req.query; // Asume que los IDs se pasan como parámetros de consulta en la URL
     const fechaDate = new Date(fecha as string);
-    const cita = await Cita.findOne({
-      where:
-      {
-        fecha_hora: fechaDate,
-        id_profesional: profesional,
-        id_numeroCedula: paciente
-      }
-    });
+    const cita = await Cita.findOne({ where: { fecha_hora: fechaDate, id_profesional: profesional, id_numeroCedula: paciente } });
+
     if (!cita) {
       res.status(404).json({ message: 'Cita no encontrada' });
       return;
     } else {
-      await Cita.destroy({
-        where:
-        {
-          fecha_hora: fechaDate,
-          id_profesional: profesional,
-          id_numeroCedula: paciente
-        }
-      });
+      await Cita.destroy({ where: { fecha_hora: fechaDate, id_profesional: profesional, id_numeroCedula: paciente } });
       res.status(200).json({ message: 'Cita eliminada exitosamente' });
     }
   } catch (error) {
@@ -108,4 +102,3 @@ export const deleteCita: RequestHandler = async (req, res, next) => {
     res.status(500).json({ message: 'Hubo un error al eliminar la cita', error: err.message });
   }
 };
-

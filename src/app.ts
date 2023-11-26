@@ -8,6 +8,8 @@ import * as dotenv from "dotenv";
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger.json';
+import { seedEspecialidades  } from './scripts/especialidadSeeder';
+
 
 const app = express();
 dotenv.config();
@@ -40,16 +42,21 @@ app.use(
   }
 );
 
+
 connection
   .sync()
-  .then(() => {
+  .then(async () => {
     console.log("Database synced successfully");
+
+    // Sembrar especialidades después de la sincronización exitosa
+    await seedEspecialidades();
+
+    // Iniciar el servidor después de sembrar las especialidades
+    app.listen(process.env.PORT, () => {
+      console.log(`Server started on port ${process.env.PORT}`);
+      console.log(`http://localhost:${process.env.PORT}`);
+    });
   })
   .catch((err) => {
     console.log("Err", err);
   });
-
-app.listen(process.env.PORT, () => {
-  console.log(`Server started on port ${process.env.PORT}`);
-  console.log(`http://localhost:${process.env.PORT}`);
-});

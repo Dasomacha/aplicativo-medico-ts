@@ -15,7 +15,7 @@ const connection = new Sequelize({
   password: process.env.PASSWORD,
   database: process.env.DB,
   logging: false,
-  models: [Paciente, Cita, Doctor, Especialidad]
+  models: [Paciente, Doctor, Cita, Especialidad]
 });
 
 export default connection;
