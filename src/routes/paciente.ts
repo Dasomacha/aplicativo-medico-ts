@@ -7,7 +7,7 @@ router.get('/', getPacientes);
 
 router.get('/:id', getPacienteById);
 
-router.post('/', createPaciente);
+router.post('/crear', createPaciente);
 
 router.put('/:id', updatePaciente);
 

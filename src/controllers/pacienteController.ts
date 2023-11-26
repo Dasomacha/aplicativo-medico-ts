@@ -31,11 +31,16 @@ export const createPaciente: RequestHandler = async (req, res, next) => {
   try {
     const paciente = await Paciente.create(req.body);
     res.status(201).json({ message: 'Paciente creado exitosamente', data: paciente });
-  } catch (error) {
-    const err = error as Error;
-    res.status(500).json({ message: 'Hubo un error al crear el paciente', error: err.message });
+  } catch (error: any) {
+    if (error.name === 'SequelizeValidationError') {
+      res.status(400).json({ message: 'Error de validación al crear el paciente', errors: error.errors });
+    } else {
+      const err = error as Error;
+      res.status(500).json({ message: 'Hubo un error al crear el paciente', error: err.message });
+    }
   }
 };
+
 
 export const updatePaciente: RequestHandler = async (req, res, next) => {
   try {

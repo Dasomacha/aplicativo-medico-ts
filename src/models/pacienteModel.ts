@@ -37,8 +37,6 @@ export class Paciente extends Model {
   })
   fecha_nacimiento!: Date;
 
-  // Se utiliza para indicar una relación de "uno a muchos". En este caso, está diciendo que un registro de este modelo puede 
-  // tener muchos registros `Cita` asociados. Al igual que con `@BelongsTo`, Sequelize utilizará esta información para unir las tablas correctamente cuando se realicen consultas.
   @HasMany(() => Cita)
   citas!: Cita[];
 }

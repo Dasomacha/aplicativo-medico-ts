@@ -59,6 +59,7 @@ export const updateDoctor: RequestHandler = async (req, res, next) => {
     const consultorioInUse = await Doctor.findOne({
       where: {
         consultorio: req.body.consultorio,
+        id_profesional: { [Op.not]: req.params.id } // Excluye el doctor actual
       }
     });
     if (consultorioInUse) {
@@ -70,7 +71,7 @@ export const updateDoctor: RequestHandler = async (req, res, next) => {
     res.status(200).json({ message: 'Doctor actualizado exitosamente', data: updatedDoctor });
   } catch (error: any) {
     if (error.name === 'SequelizeValidationError') {
-      res.status(400).json({ message: 'Correo no valido' });
+      res.status(400).json({ message: 'Error de validación al actualizar el doctor' });
     } else {
       const err = error as Error;
       res.status(500).json({ message: 'Hubo un error al actualizar el doctor', error: err.message });
