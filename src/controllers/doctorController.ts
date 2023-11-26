@@ -1,8 +1,7 @@
 import { RequestHandler } from 'express';
 import { Doctor } from '../models/doctorModel';
+import { Op } from 'sequelize';
 
-// RequestHandler es responsable de manejar una solicitud HTTP, realizar alguna lógica de servidor (como interactuar con la base de datos), 
-// y finalmente enviar una respuesta al cliente
 export const getDoctors: RequestHandler = async (req, res, next) => {
   try {
     const doctors = await Doctor.findAll();
@@ -29,28 +28,53 @@ export const getDoctorById: RequestHandler = async (req, res, next) => {
 
 export const createDoctor: RequestHandler = async (req, res, next) => {
   try {
+    // Verifica si ya existe un doctor con el mismo consultorio
+    const existingDoctor = await Doctor.findOne({ where: { consultorio: req.body.consultorio } });
+
+    if (existingDoctor) {
+      res.status(400).json({ message: 'El consultorio ya está en uso por otro doctor.' });
+      return;
+    }
+    // Crea el doctor
     const doctor = await Doctor.create(req.body);
     res.status(201).json({ message: 'Doctor creado exitosamente', data: doctor });
-  } catch (error) {
-    const err = error as Error;
-    res.status(500).json({ message: 'Hubo un error al crear el doctor', error: err.message });
+  } catch (error: any) {
+    if (error.name === 'SequelizeValidationError') {
+      res.status(400).json({ message: 'Correo no valido' });
+    } else {
+      const err = error as Error;
+      res.status(500).json({ message: 'Hubo un error al crear el doctor', error: err.message });
+    }
   }
 };
 
 export const updateDoctor: RequestHandler = async (req, res, next) => {
   try {
     const doctor = await Doctor.findByPk(req.params.id);
+
     if (!doctor) {
       res.status(404).json({ message: 'Doctor no encontrado' });
       return;
-    } else {
-      await Doctor.update(req.body, { where: { id_profesional: req.params.id } });
-      const updatedDoctor = await Doctor.findByPk(req.params.id);
-      res.status(200).json({ message: 'Doctor actualizado exitosamente', data: updatedDoctor });
     }
-  } catch (error) {
-    const err = error as Error;
-    res.status(500).json({ message: 'Hubo un error al actualizar el doctor', error: err.message });
+    const consultorioInUse = await Doctor.findOne({
+      where: {
+        consultorio: req.body.consultorio,
+      }
+    });
+    if (consultorioInUse) {
+      res.status(400).json({ message: 'El consultorio ya está en uso por otro doctor.' });
+      return;
+    }
+    await Doctor.update(req.body, { where: { id_profesional: req.params.id } });
+    const updatedDoctor = await Doctor.findByPk(req.params.id);
+    res.status(200).json({ message: 'Doctor actualizado exitosamente', data: updatedDoctor });
+  } catch (error: any) {
+    if (error.name === 'SequelizeValidationError') {
+      res.status(400).json({ message: 'Correo no valido' });
+    } else {
+      const err = error as Error;
+      res.status(500).json({ message: 'Hubo un error al actualizar el doctor', error: err.message });
+    }
   }
 };
 

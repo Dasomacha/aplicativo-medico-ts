@@ -47,10 +47,10 @@ export class Doctor extends Model {
   especialidad!: Especialidad;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.INTEGER,
     allowNull: false,
   })
-  consultorio!: string;
+  consultorio!: number;
 
   @HasMany(() => Cita)
   citas!: Cita[];
