@@ -27,14 +27,16 @@
                                                 "nombre": "Juan",
                                                 "apellido": "Pérez",
                                                 "correo": "juan.perez@example.com",
-                                                "especialidad": "medicina_interna"
+                                                "id_especialidad": 2,
+                                                "consultorio": 201
                                             },
                                             {
                                                 "id_profesional": 2,
                                                 "nombre": "Ana",
                                                 "apellido": "Gómez",
                                                 "correo": "ana.gomez@example.com",
-                                                "especialidad": "medicina_general"
+                                                "id_especialidad": 5,
+                                                "consultorio": 204
                                             }
                                         ]
                                     }
@@ -58,6 +60,7 @@
                     }
                 }
             },
+            "/doctors/crear": {
             "post": {
                 "summary": "Crea un nuevo doctor",
                 "requestBody": {
@@ -69,11 +72,11 @@
                             "examples": {
                                 "example-1": {
                                     "value": {
-                                        "id_profesional": 3,
                                         "nombre": "Carlos",
                                         "apellido": "Rodríguez",
                                         "correo": "carlos.rodriguez@example.com",
-                                        "especialidad": "medicina_interna"
+                                        "id_especialidad": 3,
+                                        "consultorio": 201
                                     }
                                 }
                             }
@@ -83,42 +86,63 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Doctor creado exitosamente",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Doctor"
-                                },
-                                "examples": {
-                                    "example-1": {
-                                        "value": {
-                                            "id_profesional": 3,
-                                            "nombre": "Carlos",
-                                            "apellido": "Rodríguez",
-                                            "correo": "carlos.rodriguez@example.com",
-                                            "especialidad": "medicina_interna"
-                                        }
-                                    }
-                                }
+                      "description": "Doctor creado exitosamente",
+                      "content": {
+                        "application/json": {
+                          "schema": {
+                            "$ref": "#/components/schemas/Doctor"
+                          },
+                          "examples": {
+                            "example-1": {
+                              "value": {
+                                "id_profesional": 3,
+                                "nombre": "Carlos",
+                                "apellido": "Rodríguez",
+                                "correo": "carlos.rodriguez@example.com",
+                                "id_especialidad": 3,
+                                "consultorio": 201
+                              }
                             }
+                          }
                         }
+                      }
+                    },
+                    "400": {
+                      "description": "Consultorio duplicado o correo no válido",
+                      "content": {
+                        "application/json": {
+                          "examples": {
+                            "example-1": {
+                              "value": {
+                                "message": "El consultorio ya está en uso por otro doctor."
+                              }
+                            },
+                            "example-2": {
+                              "value": {
+                                "message": "Correo no válido"
+                              }
+                            }
+                          }
+                        }
+                      }
                     },
                     "500": {
-                        "description": "Error del servidor",
-                        "content": {
-                            "application/json": {
-                                "examples": {
-                                    "example-1": {
-                                        "value": {
-                                            "message": "Hubo un error al crear el doctor"
-                                        }
-                                    }
-                                }
+                      "description": "Error del servidor",
+                      "content": {
+                        "application/json": {
+                          "examples": {
+                            "example-1": {
+                              "value": {
+                                "message": "Hubo un error al crear el doctor"
+                              }
                             }
+                          }
                         }
+                      }
                     }
+                  }
                 }
-            }
+             }
         },
         "/doctors/{id}": {
             "get": {
@@ -149,7 +173,8 @@
                                             "nombre": "Juan",
                                             "apellido": "Pérez",
                                             "correo": "juan.perez@example.com",
-                                            "especialidad": "medicina_interna"
+                                            "id_especialidad": 2,
+                                            "consultorio": 201
                                         }
                                     }
                                 }
@@ -189,88 +214,109 @@
             "put": {
                 "summary": "Actualiza un doctor",
                 "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "description": "ID del doctor",
-                        "schema": {
-                            "type": "integer"
-                        }
+                  {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID del doctor",
+                    "schema": {
+                      "type": "integer"
                     }
+                  }
                 ],
                 "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Doctor"
-                            },
-                            "examples": {
-                                "example-1": {
-                                    "value": {
-                                        "nombre": "Juan Actualizado",
-                                        "apellido": "Pérez Actualizado",
-                                        "correo": "juan.perez.actualizado@example.com",
-                                        "especialidad": "medicina_general"
-                                    }
-                                }
-                            }
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Doctor"
+                      },
+                      "examples": {
+                        "example-1": {
+                          "value": {
+                            "nombre": "Juan Actualizado",
+                            "apellido": "Pérez Actualizado",
+                            "correo": "juan.perez.actualizado@example.com",
+                            "id_especialidad": 7,
+                            "consultorio": 207
+                          }
                         }
-                    },
-                    "required": true
+                      }
+                    }
+                  },
+                  "required": true
                 },
                 "responses": {
-                    "200": {
-                        "description": "Doctor actualizado exitosamente",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Doctor"
-                                },
-                                "examples": {
-                                    "example-1": {
-                                        "value": {
-                                            "id_profesional": 1,
-                                            "nombre": "Juan Actualizado",
-                                            "apellido": "Pérez Actualizado",
-                                            "correo": "juan.perez.actualizado@example.com",
-                                            "especialidad": "medicina_general"
-                                        }
-                                    }
-                                }
+                  "200": {
+                    "description": "Doctor actualizado exitosamente",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "$ref": "#/components/schemas/Doctor"
+                        },
+                        "examples": {
+                          "example-1": {
+                            "value": {
+                              "id_profesional": 1,
+                              "nombre": "Juan Actualizado",
+                              "apellido": "Pérez Actualizado",
+                              "correo": "juan.perez.actualizado@example.com",
+                              "id_especialidad": 7,
+                              "consultorio": 207
                             }
+                          }
                         }
-                    },
-                    "404": {
-                        "description": "Doctor no encontrado",
-                        "content": {
-                            "application/json": {
-                                "examples": {
-                                    "example-1": {
-                                        "value": {
-                                            "message": "Doctor no encontrado"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Error del servidor",
-                        "content": {
-                            "application/json": {
-                                "examples": {
-                                    "example-1": {
-                                        "value": {
-                                            "message": "Hubo un error al actualizar el doctor"
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                      }
                     }
+                  },
+                  "404": {
+                    "description": "Doctor no encontrado",
+                    "content": {
+                      "application/json": {
+                        "examples": {
+                          "example-1": {
+                            "value": {
+                              "message": "Doctor no encontrado"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "400": {
+                    "description": "Consultorio duplicado o correo no válido",
+                    "content": {
+                      "application/json": {
+                        "examples": {
+                          "example-1": {
+                            "value": {
+                              "message": "El consultorio ya está en uso por otro doctor."
+                            }
+                          },
+                          "example-2": {
+                            "value": {
+                              "message": "Correo no válido"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "500": {
+                    "description": "Error del servidor",
+                    "content": {
+                      "application/json": {
+                        "examples": {
+                          "example-1": {
+                            "value": {
+                              "message": "Hubo un error al actualizar el doctor"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
-            },
+              },
             "delete": {
                 "summary": "Elimina un doctor",
                 "parameters": [
@@ -348,18 +394,18 @@
                                     "example-1": {
                                         "value": [
                                             {
-                                                "id_numeroCedula": 1,
+                                                "id_numeroCedula": 123,
                                                 "nombre": "Pedro",
                                                 "apellido": "García",
                                                 "telefono": "1234567890",
-                                                "edad": "1990-01-01"
+                                                "fecha_nacimiento": "1990-01-01"
                                             },
                                             {
-                                                "id_numeroCedula": 2,
+                                                "id_numeroCedula": 321,
                                                 "nombre": "María",
                                                 "apellido": "López",
                                                 "telefono": "0987654321",
-                                                "edad": "1995-01-01"
+                                                "fecha_nacimiento": "1995-01-01"
                                             }
                                         ]
                                     }
@@ -382,66 +428,82 @@
                         }
                     }
                 }
-            },
+            }
+        },  
+        "/pacientes/crear": {
             "post": {
                 "summary": "Crea un nuevo paciente",
                 "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Paciente"
-                            },
-                            "examples": {
-                                "example-1": {
-                                    "value": {
-                                        "id_numeroCedula": 3,
-                                        "nombre": "Luis",
-                                        "apellido": "Martínez",
-                                        "telefono": "1122334455",
-                                        "edad": "2000-01-01"
-                                    }
-                                }
-                            }
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Paciente"
+                      },
+                      "examples": {
+                        "example-1": {
+                          "value": {
+                            "id_numeroCedula": 311,
+                            "nombre": "Luis",
+                            "apellido": "Martínez",
+                            "telefono": "1122334455",
+                            "fecha_nacimiento": "2000-01-01"
+                          }
                         }
-                    },
-                    "required": true
+                      }
+                    }
+                  },
+                  "required": true
                 },
                 "responses": {
-                    "201": {
-                        "description": "Paciente creado exitosamente",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Paciente"
-                                },
-                                "examples": {
-                                    "example-1": {
-                                        "value": {
-                                            "id_numeroCedula": 3,
-                                            "nombre": "Luis",
-                                            "apellido": "Martínez",
-                                            "telefono": "1122334455",
-                                            "edad": "2000-01-01"
-                                        }
-                                    }
-                                }
+                  "201": {
+                    "description": "Paciente creado exitosamente",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "$ref": "#/components/schemas/Paciente"
+                        },
+                        "examples": {
+                          "example-1": {
+                            "value": {
+                              "id_numeroCedula": 3,
+                              "nombre": "Luis",
+                              "apellido": "Martínez",
+                              "telefono": "1122334455",
+                              "fecha_nacimiento": "2000-01-01"
                             }
+                          }
                         }
-                    },
-                    "500": {
-                        "description": "Error del servidor",
-                        "content": {
-                            "application/json": {
-                                "examples": {
-                                    "example-1": {
-                                        "value": {
-                                            "message": "Hubo un error al crear el paciente"
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                      }
                     }
+                  },
+                  "400": {
+                    "description": "El número de cédula ya existe",
+                    "content": {
+                      "application/json": {
+                        "examples": {
+                          "example-1": {
+                            "value": {
+                              "message": "El número de cédula ya existe"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "500": {
+                    "description": "Error del servidor",
+                    "content": {
+                      "application/json": {
+                        "examples": {
+                          "example-1": {
+                            "value": {
+                              "message": "Hubo un error al crear el paciente"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
             }
         },
@@ -470,11 +532,11 @@
                                 "examples": {
                                     "example-1": {
                                         "value": {
-                                            "id_numeroCedula": 1,
+                                            "id_numeroCedula": 123,
                                             "nombre": "Pedro",
                                             "apellido": "García",
                                             "telefono": "1234567890",
-                                            "edad": "1990-01-01"
+                                            "fecha_nacimiento": "1990-01-01"
                                         }
                                     }
                                 }
@@ -536,7 +598,7 @@
                                         "nombre": "Pedro Actualizado",
                                         "apellido": "García Actualizado",
                                         "telefono": "0987654321",
-                                        "edad": "1991-01-01"
+                                        "fecha_nacimiento": "1991-01-01"
                                     }
                                 }
                             }
@@ -555,11 +617,11 @@
                                 "examples": {
                                     "example-1": {
                                         "value": {
-                                            "id_numeroCedula": 1,
+                                            "id_numeroCedula": 111,
                                             "nombre": "Pedro Actualizado",
                                             "apellido": "García Actualizado",
                                             "telefono": "0987654321",
-                                            "edad": "1991-01-01"
+                                            "fecha_nacimiento": "1991-01-01"
                                         }
                                     }
                                 }
@@ -673,14 +735,14 @@
                                     "example-1": {
                                         "value": [
                                             {
-                                                "fecha_hora": "2023-01-01T10:00:00Z",
+                                                "fecha_hora": "2023-11-26T17:30:00.000Z",
                                                 "id_profesional": 1,
-                                                "id_numeroCedula": 1
+                                                "id_numeroCedula": 123
                                             },
                                             {
-                                                "fecha_hora": "2023-01-02T10:00:00Z",
+                                                "fecha_hora": "2023-11-26T17:30:00.000Z",
                                                 "id_profesional": 2,
-                                                "id_numeroCedula": 2
+                                                "id_numeroCedula": 321
                                             }
                                         ]
                                     }
@@ -704,6 +766,107 @@
                     }
                 }
             },
+            "put": {
+                "summary": "Actualiza una cita",
+                "parameters": [
+                  {
+                    "name": "profesional",
+                    "in": "query",
+                    "required": true,
+                    "description": "Profesional de la cita",
+                    "schema": {
+                      "type": "integer"
+                    }
+                  },
+                  {
+                    "name": "paciente",
+                    "in": "query",
+                    "required": true,
+                    "description": "Paciente de la cita",
+                    "schema": {
+                      "type": "integer"
+                    }
+                  },
+                  {
+                    "name": "fecha",
+                    "in": "query",
+                    "required": true,
+                    "description": "Fecha de la cita",
+                    "schema": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                ],
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Cita"
+                      },
+                      "examples": {
+                        "example-1": {
+                          "value": {
+                            "fecha_hora": "2023-11-26T17:30:00.000Z",
+                            "id_profesional": 2,
+                            "id_numeroCedula": 2
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": true
+                },
+                "responses": {
+                  "200": {
+                    "description": "Cita actualizada exitosamente",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "$ref": "#/components/schemas/Cita"
+                        },
+                        "examples": {
+                          "example-1": {
+                            "value": {
+                              "message": "Cita actualizada exitosamente"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "404": {
+                    "description": "Cita no encontrada",
+                    "content": {
+                      "application/json": {
+                        "examples": {
+                          "example-1": {
+                            "value": {
+                              "message": "Cita no encontrada"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "500": {
+                    "description": "Error del servidor",
+                    "content": {
+                      "application/json": {
+                        "examples": {
+                          "example-1": {
+                            "value": {
+                              "message": "Hubo un error al actualizar la cita"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+             }
+           },
+           "/citas/crear": {
             "post": {
                 "summary": "Crea una nueva cita",
                 "requestBody": {
@@ -715,9 +878,9 @@
                             "examples": {
                                 "example-1": {
                                     "value": {
-                                        "fecha_hora": "2023-01-03T10:00:00Z",
+                                        "fecha_hora": "2023-11-26T17:30:00.000Z",
                                         "id_profesional": 3,
-                                        "id_numeroCedula": 3
+                                        "id_numeroCedula": 456
                                     }
                                 }
                             }
@@ -736,7 +899,7 @@
                                 "examples": {
                                     "example-1": {
                                         "value": {
-                                            "fecha_hora": "2023-01-03T10:00:00Z",
+                                            "fecha_hora": "2023-11-26T17:30:00.000Z",
                                             "id_profesional": 3,
                                             "id_numeroCedula": 3
                                         }
@@ -760,189 +923,85 @@
                         }
                     }
                 }
-            },
-            "put": {
-                "summary": "Actualiza una cita",
-                "parameters": [
-                    {
-                        "name": "profesional",
-                        "in": "query",
-                        "required": true,
-                        "description": "Profesional de la cita",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "paciente",
-                        "in": "query",
-                        "required": true,
-                        "description": "Paciente de la cita",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "fecha",
-                        "in": "query",
-                        "required": true,
-                        "description": "Fecha de la cita",
-                        "schema": {
-                            "type": "string",
-                            "format": "date-time"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Cita"
-                            },
-                            "examples": {
-                                "example-1": {
-                                    "value": {
-                                        "fecha_hora": "2023-01-02T10:00:00Z",
-                                        "id_profesional": 2,
-                                        "id_numeroCedula": 2
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Cita actualizada exitosamente",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Cita"
-                                },
-                                "examples": {
-                                    "example-1": {
-                                        "value": {
-                                            "message": "Cita actualizada exitosamente"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Error del servidor",
-                        "content": {
-                            "application/json": {
-                                "examples": {
-                                    "example-1": {
-                                        "value": {
-                                            "message": "Hubo un error al actualizar la cita"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
+            }
+        },
+        "/citas/{fecha}": {
             "delete": {
                 "summary": "Elimina una cita",
                 "parameters": [
                     {
-                        "name": "profesional",
-                        "in": "query",
-                        "required": true,
-                        "description": "Profesional de la cita",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "paciente",
-                        "in": "query",
-                        "required": true,
-                        "description": "Paciente de la cita",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "fecha",
-                        "in": "query",
-                        "required": true,
-                        "description": "Fecha de la cita",
-                        "schema": {
-                            "type": "string",
-                            "format": "date-time"
-                        }
+                      "name": "fecha",
+                      "in": "path",
+                      "required": true,
+                      "description": "Fecha de la cita",
+                      "schema": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
                     }
-                ],
+                  ],
                 "responses": {
-                    "200": {
-                        "description": "Cita eliminada exitosamente",
-                        "content": {
-                            "application/json": {
-                                "examples": {
-                                    "example-1": {
-                                        "value": {
-                                            "message": "Cita eliminada exitosamente"
-                                        }
-                                    }
-                                }
+                  "200": {
+                    "description": "Cita eliminada exitosamente",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Cita"
+                        },
+                        "examples": {
+                          "example-1": {
+                            "value": {
+                              "message": "Cita eliminada exitosamente"
                             }
+                          }
                         }
-                    },
-                    "500": {
-                        "description": "Error del servidor",
-                        "content": {
-                            "application/json": {
-                                "examples": {
-                                    "example-1": {
-                                        "value": {
-                                            "message": "Hubo un error al eliminar la cita"
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                      }
                     }
+                  },
+                  "404": {
+                    "description": "Cita no encontrada",
+                    "content": {
+                      "application/json": {
+                        "examples": {
+                          "example-1": {
+                            "value": {
+                              "message": "Cita no encontrada"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "500": {
+                    "description": "Error del servidor",
+                    "content": {
+                      "application/json": {
+                        "examples": {
+                          "example-1": {
+                            "value": {
+                              "message": "Hubo un error al eliminar la cita"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
-            }
-        },
-        "/citas/unica": {
+            },
             "get": {
-                "summary": "Obtiene una cita unica",
+                "summary": "Obtiene una cita única por fecha",
                 "parameters": [
                     {
-                        "name": "profesional",
-                        "in": "query",
-                        "required": true,
-                        "description": "Profesional de la cita",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "paciente",
-                        "in": "query",
-                        "required": true,
-                        "description": "Paciente de la cita",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "fecha",
-                        "in": "query",
-                        "required": true,
-                        "description": "Fecha de la cita",
-                        "schema": {
-                            "type": "string",
-                            "format": "date-time"
-                        }
+                      "name": "fecha",
+                      "in": "path",
+                      "required": true,
+                      "description": "Fecha de la cita",
+                      "schema": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
                     }
-                ],
+                  ],
                 "responses": {
                     "200": {
                         "description": "Operación exitosa",
@@ -954,7 +1013,7 @@
                                 "examples": {
                                     "example-1": {
                                         "value": {
-                                            "fecha_hora": "2023-01-01T10:00:00Z",
+                                            "fecha_hora": "2023-11-26T17:30:00.000Z",
                                             "id_profesional": 1,
                                             "id_numeroCedula": 1
                                         }
@@ -993,79 +1052,81 @@
                     }
                 }
             }
-        }
+       }   
     },
     "components": {
-        "schemas": {
-            "Doctor": {
-                "type": "object",
-                "properties": {
-                    "id_profesional": {
-                        "type": "integer",
-                        "description": "ID del doctor"
-                    },
-                    "nombre": {
-                        "type": "string",
-                        "description": "Nombre del doctor"
-                    },
-                    "apellido": {
-                        "type": "string",
-                        "description": "Apellido del doctor"
-                    },
-                    "correo": {
-                        "type": "string",
-                        "description": "Correo del doctor"
-                    },
-                    "especialidad": {
-                        "type": "string",
-                        "enum": [
-                            "medicina_interna",
-                            "medicina_general"
-                        ],
-                        "description": "Especialidad del doctor"
-                    }
-                },
-                "required": [
-                    "id_profesional",
-                    "nombre",
-                    "apellido",
-                    "correo",
-                    "especialidad"
-                ]
+    "schemas": {
+        "Doctor": {
+            "type": "object",
+            "properties": {
+              "id_profesional": {
+                "type": "integer",
+                "description": "ID del doctor"
+              },
+              "nombre": {
+                "type": "string",
+                "description": "Nombre del doctor"
+              },
+              "apellido": {
+                "type": "string",
+                "description": "Apellido del doctor"
+              },
+              "correo": {
+                "type": "string",
+                "description": "Correo del doctor",
+                "format": "email"
+              },
+              "id_especialidad": {
+                "type": "integer",
+                "description": "ID Especialidad del doctor"
+              },
+              "consultorio": {
+                "type": "integer",
+                "description": "Número de consultorio del doctor"
+              }
             },
-            "Paciente": {
-                "type": "object",
-                "properties": {
-                    "id_numeroCedula": {
-                        "type": "integer",
-                        "description": "ID del paciente"
-                    },
-                    "nombre": {
-                        "type": "string",
-                        "description": "Nombre del paciente"
-                    },
-                    "apellido": {
-                        "type": "string",
-                        "description": "Apellido del paciente"
-                    },
-                    "telefono": {
-                        "type": "string",
-                        "description": "Teléfono del paciente"
-                    },
-                    "edad": {
-                        "type": "string",
-                        "format": "date",
-                        "description": "Fecha de nacimiento del paciente"
-                    }
-                },
-                "required": [
-                    "id_numeroCedula",
-                    "nombre",
-                    "apellido",
-                    "telefono",
-                    "edad"
-                ]
+            "required": [
+              "id_profesional",
+              "nombre",
+              "apellido",
+              "correo",
+              "id_especialidad",
+              "consultorio"
+            ]
+          },
+          "Paciente": {
+            "type": "object",
+            "properties": {
+              "id_numeroCedula": {
+                "type": "integer",
+                "description": "ID del paciente"
+              },
+              "nombre": {
+                "type": "string",
+                "description": "Nombre del paciente"
+              },
+              "apellido": {
+                "type": "string",
+                "description": "Apellido del paciente"
+              },
+              "telefono": {
+                "type": "string",
+                "description": "Teléfono del paciente"
+              },
+              "fecha_nacimiento": {
+                "type": "string",
+                "format": "date",
+                "description": "Fecha de nacimiento del paciente"
+              }
             },
+            "required": [
+              "id_numeroCedula",
+              "nombre",
+              "apellido",
+              "telefono",
+              "fecha_nacimiento"
+            ]
+          },
             "Cita": {
                 "type": "object",
                 "properties": {

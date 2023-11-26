@@ -5,12 +5,12 @@ const router = Router();
 
 router.get('/', getCitas);
 
-router.get('/unica', getOneCita);
+router.get('/:fecha', getOneCita);
 
 router.post('/crear', createCita);
 
 router.put('/', updateCita);
 
-router.delete('/', deleteCita);
+router.delete('/:fecha', deleteCita);
 
 export default router;
