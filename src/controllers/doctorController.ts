@@ -40,10 +40,10 @@ export const createDoctor: RequestHandler = async (req, res, next) => {
     res.status(201).json({ message: 'Doctor creado exitosamente', data: doctor });
   } catch (error: any) {
     if (error.name === 'SequelizeValidationError') {
-      res.status(400).json({ message: 'Correo no valido' });
+        res.status(400).json({ message: 'Correo no valido' });
     } else {
-      const err = error as Error;
-      res.status(500).json({ message: 'Hubo un error al crear el doctor', error: err.message });
+        const err = error as Error;
+        res.status(500).json({ message: 'Hubo un error al crear el doctor', error: err.message });
     }
   }
 };
@@ -71,7 +71,7 @@ export const updateDoctor: RequestHandler = async (req, res, next) => {
     res.status(200).json({ message: 'Doctor actualizado exitosamente', data: updatedDoctor });
   } catch (error: any) {
     if (error.name === 'SequelizeValidationError') {
-      res.status(400).json({ message: 'Error de validación al actualizar el doctor' });
+      res.status(400).json({ message: 'Correo no valido' });
     } else {
       const err = error as Error;
       res.status(500).json({ message: 'Hubo un error al actualizar el doctor', error: err.message });

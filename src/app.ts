@@ -42,18 +42,17 @@ app.use(
   }
 );
 
-
 connection
   .sync()
   .then(async () => {
-    console.log("Database synced successfully");
+    console.log("Base de datos sincronizada exitosamente");
 
     // Sembrar especialidades después de la sincronización exitosa
     await seedEspecialidades();
 
     // Iniciar el servidor después de sembrar las especialidades
     app.listen(process.env.PORT, () => {
-      console.log(`Server started on port ${process.env.PORT}`);
+      console.log(`Servidor iniciado en el puerto ${process.env.PORT}`);
       console.log(`http://localhost:${process.env.PORT}`);
     });
   })

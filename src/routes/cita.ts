@@ -7,7 +7,7 @@ router.get('/', getCitas);
 
 router.get('/unica', getOneCita);
 
-router.post('/', createCita);
+router.post('/crear', createCita);
 
 router.put('/', updateCita);
 

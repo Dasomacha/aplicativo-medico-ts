@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 import { Paciente } from '../models/pacienteModel';
+import { Cita } from '../models/citaModel';
 
 // RequestHandler es responsable de manejar una solicitud HTTP, realizar alguna lógica de servidor (como interactuar con la base de datos), 
 // y finalmente enviar una respuesta al cliente
@@ -15,9 +16,12 @@ export const getPacientes: RequestHandler = async (req, res, next) => {
 
 export const getPacienteById: RequestHandler = async (req, res, next) => {
   try {
-    const paciente = await Paciente.findByPk(req.params.id);
+    const paciente = await Paciente.findByPk(req.params.id, {
+      include: [{ model: Cita }],
+    });
     if (paciente) {
-      res.status(200).json({ message: 'Operación exitosa', data: paciente });
+      const numeroDeCitas = paciente.citas.length;
+      res.status(200).json({ message: 'Operación exitosa', data: { paciente, numeroDeCitas } });
     } else {
       res.status(404).json({ message: 'Paciente no encontrado' });
     }
@@ -29,15 +33,16 @@ export const getPacienteById: RequestHandler = async (req, res, next) => {
 
 export const createPaciente: RequestHandler = async (req, res, next) => {
   try {
-    const paciente = await Paciente.create(req.body);
+    // Verificar si ya existe un paciente con el mismo número de cédula
+    const pacienteExistente = await Paciente.findOne({ where: { id_numeroCedula: req.body.id_numeroCedula } });
+
+    if (pacienteExistente) {
+      return res.status(400).json({ message: 'El número de cédula ya existe' });
+    }
+    const paciente = await Paciente.create({ ...req.body });
     res.status(201).json({ message: 'Paciente creado exitosamente', data: paciente });
   } catch (error: any) {
-    if (error.name === 'SequelizeValidationError') {
-      res.status(400).json({ message: 'Error de validación al crear el paciente', errors: error.errors });
-    } else {
-      const err = error as Error;
-      res.status(500).json({ message: 'Hubo un error al crear el paciente', error: err.message });
-    }
+    res.status(500).json({ message: 'Hubo un error al crear el paciente', error: error.message });
   }
 };
 
