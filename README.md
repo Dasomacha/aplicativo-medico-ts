@@ -1,15 +1,8 @@
-# Basic API REST Citas
+# API REST Gestión de Citas
 
-Node.js, Express.js, MySQL, Sequelize and Typescript Basic REST API.
+Este proyecto es una API REST básica construida con Node.js, Express.js, MySQL, Sequelize y TypeScript para gestionar citas médicas. La API proporciona funcionalidades CRUD (Crear, Leer, Actualizar, Eliminar) para citas médicas entre doctores y pacientes. Utiliza MySQL como base de datos relacional y Sequelize como un ORM para interactuar con la base de datos.
 
-You can clone this repo as starter project for your Express, MySQL API server
-
-## Features and Functionalities 😃
-- Node, Express, Typescript, MySQL and Sequelize as ORM Basic REST API
-- CRUD Operations (A Controller for this)
-- SQL for database: Relational MySQL - Use ORM Sequelize
-
-## Tech Stack 💻
+## Tecnologías Utilizadas 🌟
 
 - [Node](https://nodejs.org/en)
 - [Express](https://expressjs.com/)
@@ -17,41 +10,30 @@ You can clone this repo as starter project for your Express, MySQL API server
 - [Typescript](https://nodejs.dev/en/learn/nodejs-with-typescript/)
 - [Sequelize](https://sequelize.org)
 
-## Installation and Running App :zap:
+## Uso ⚙️
 
-**1. Clone this repo by running the following command :-**
+1. **Clona este repositorio**
+   
+    ```bash
+    git clone <URL_DEL_REPOSITORIO>
+    ```
 
-```bash
- git clone https://github.com/norbeydanilo/api-citas-sequelize-ts.git
- cd api-citas-sequelize-ts
-```
+2. **Instala las dependencias**
 
-**2. Install the required package :-**
+    ```bash
+    npm install
+    ```
 
-```bash
- npm install
-```
+3. **Configura las variables de entorno**
 
-**3. Now run the npm command to start the project :-**
+    Crea un archivo `.env` en la raíz del proyecto y configura las variables necesarias, como la conexión a la base de datos.
 
-```bash
- npm run dev
-```
+4. **Inicia la aplicación en modo de desarrollo**
 
-**4.** **🎉 Open postman and test the rest api on this url `https://127.0.0.1:3000`**
+    ```bash
+    npm run dev
+    ```
 
-Remember that the `.env` file must be created for the API to work.
+6. **Accede a la documentación Swagger**
 
-Remember to create the database. It is not necessary to run script to create tables or other specifications, as this is done by the ORM.
-
-Additionally this project uses: 
-
-- [TS-Nodemon](https://stackoverflow.com/questions/37979489/how-to-watch-and-reload-ts-node-when-typescript-files-change)
-- [body-parser](https://www.npmjs.com/package/body-parser)
-- [Dotenv](https://www.npmjs.com/package/dotenv)
-- [MySQL2](https://www.npmjs.com/package/mysql2)
-- [Cors](https://www.npmjs.com/package/cors)
-
-### Swagger and Running
-
-Debes tener creada unicamente la base de datos. El ORM se encarga del mapeo entre la especificación en código y la base de datos MySQL.
+    Visita [http://localhost:3000/api-docs](http://localhost:3000/api-docs) para obtener información sobre los endpoints y cómo interactuar con la API.
