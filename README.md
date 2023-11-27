@@ -15,7 +15,7 @@ Este proyecto es una API REST básica construida con Node.js, Express.js, MySQL,
 1. **Clona este repositorio**
    
     ```bash
-    git clone <URL_DEL_REPOSITORIO>
+    git clone https://github.com/Dasomacha/aplicativo-medico-ts.git
     ```
 
 2. **Instala las dependencias**
@@ -37,4 +37,4 @@ Este proyecto es una API REST básica construida con Node.js, Express.js, MySQL,
 6. **Accede a la documentación Swagger**
 
     Usa la url [http://127.0.0.1:3000/api-docs](http://localhost:3000/api-docs) para obtener información sobre los endpoints y cómo interactuar con la API.
-    ![Alt text](image.png)
+   ![Swagger](https://drive.google.com/file/d/12xMc6kr4QBYinPj4Dspzh7iPV9Lmy-TQ/view?usp=drive_link)
