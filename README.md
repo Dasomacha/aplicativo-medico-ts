@@ -10,6 +10,10 @@ Este proyecto es una API REST básica construida con Node.js, Express.js, MySQL,
 - [Typescript](https://nodejs.dev/en/learn/nodejs-with-typescript/)
 - [Sequelize](https://sequelize.org)
 
+## Modelo relacional
+
+![model](https://github.com/Dasomacha/imagenes/blob/main/database.png?raw=true)   
+
 ## Uso ⚙️
 
 1. **Clona este repositorio**
@@ -38,4 +42,4 @@ Este proyecto es una API REST básica construida con Node.js, Express.js, MySQL,
 
     Usa la url [http://127.0.0.1:3000/api-docs](http://localhost:3000/api-docs) para obtener información sobre los endpoints y cómo interactuar con la API.
    
-   ![Swagger](https://github.com/Dasomacha/imagenes/blob/main/imagen%201.png?raw=true)
+   ![Swagger](https://github.com/Dasomacha/imagenes/blob/main/imagen%201.png?raw=true)   
