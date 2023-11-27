@@ -36,4 +36,5 @@ Este proyecto es una API REST básica construida con Node.js, Express.js, MySQL,
 
 6. **Accede a la documentación Swagger**
 
-    Visita [http://localhost:3000/api-docs](http://localhost:3000/api-docs) para obtener información sobre los endpoints y cómo interactuar con la API.
+    Usa la url [http://127.0.0.1:3000/api-docs](http://localhost:3000/api-docs) para obtener información sobre los endpoints y cómo interactuar con la API.
+    ![Alt text](image.png)
