@@ -54,3 +54,12 @@ Este proyecto es una API REST básica construida con Node.js, Express.js, MySQL,
 
 - Agregar cita
 ![cita](https://github.com/Dasomacha/imagenes/blob/main/crearcitas.png?raw=true)
+
+- Listado de pacientes
+![listapaciente](https://github.com/Dasomacha/imagenes/blob/main/obtienepacientes.png?raw=true)
+
+- Listado de doctores
+![listadoctores](https://github.com/Dasomacha/imagenes/blob/main/obtienedoctores.png?raw=true)
+
+- Listado de citas
+![listacitas](https://github.com/Dasomacha/imagenes/blob/main/obtienecitas.png?raw=true)
