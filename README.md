@@ -43,3 +43,14 @@ Este proyecto es una API REST básica construida con Node.js, Express.js, MySQL,
     Usa la url [http://127.0.0.1:3000/api-docs](http://localhost:3000/api-docs) para obtener información sobre los endpoints y cómo interactuar con la API.
    
    ![Swagger](https://github.com/Dasomacha/imagenes/blob/main/imagen%201.png?raw=true)   
+
+## Pruebas en Postman
+
+- Agregar paciente
+![paciente](https://github.com/Dasomacha/imagenes/blob/main/crearpacientes.png?raw=true)
+
+- Agregar doctor
+![doctor](https://github.com/Dasomacha/imagenes/blob/main/creardoctor.png?raw=true)   
+
+- Agregar cita
+![cita](https://github.com/Dasomacha/imagenes/blob/main/crearcitas.png?raw=true)
