@@ -46,6 +46,8 @@ Este proyecto es una API REST básica construida con Node.js, Express.js, MySQL,
 
 ## Pruebas en Postman
 
+A continuación se encuentran capturas de algunas de las pruebas realizadas en Postman. Para conocer más a fondo las operaciones CRUD de la API y cómo funciona la misma, revisar la documentación Swagger que se indica en el punto anterior.
+
 - Agregar paciente
 ![paciente](https://github.com/Dasomacha/imagenes/blob/main/crearpacientes.png?raw=true)
 
