@@ -16,46 +16,18 @@ Este proyecto es una API REST básica construida con Node.js, Express.js, MySQL,
 
 ## Uso ⚙️
 
-1. String → cadenas de texto.
+1. **Clona este repositorio**
    
     ```bash
-    let nombre = "Danna";
+    git clone https://github.com/Dasomacha/aplicativo-medico-ts.git
     ```
 
-2. Number → números enteros o decimales.
+2. **Instala las dependencias**
 
     ```bash
-    let edad = 23;
-    let precio = 19.99;
+    npm install
     ```
-3. Boolean → valores lógicos (true/false).
-
-    ```bash
-    let activo = true;
-    ```
-4. Undefined → variable declarada pero no inicializada.
-
-    ```bash
-    let x;
-   console.log(x);
-
-    ```
-5. Null → ausencia intencional de valor.
-
-    ```bash
-    let dato = null;
-    ```
-
-6. Symbol → identificadores únicos e inmutables.
-
-    ```bash
-    let id = Symbol("id");
-    ```
-7. BigInt → números enteros muy grandes.
-
-    ```bash
-    let numeroGrande = 123456789012345678901234567890n;
-    ```
+    
 3. **Configura las variables de entorno**
 
     Crea un archivo `.env` en la raíz del proyecto y configura las variables necesarias, como la conexión a la base de datos.
