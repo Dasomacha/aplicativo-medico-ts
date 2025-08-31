@@ -19,15 +19,43 @@ Este proyecto es una API REST básica construida con Node.js, Express.js, MySQL,
 1. **Clona este repositorio**
    
     ```bash
-    git clone https://github.com/Dasomacha/aplicativo-medico-ts.git
+    let nombre = "Danna";
     ```
 
 2. **Instala las dependencias**
 
     ```bash
-    npm install
+    let edad = 23;
+    let precio = 19.99;
+    ```
+2. **Instala las dependencias**
+
+    ```bash
+    let activo = true;
+    ```
+2. **Instala las dependencias**
+
+    ```bash
+    let x;
+   console.log(x);
+
+    ```
+2. **Instala las dependencias**
+
+    ```bash
+    let dato = null;
     ```
 
+2. **Instala las dependencias**
+
+    ```bash
+    let id = Symbol("id");
+    ```
+2. **Instala las dependencias**
+
+    ```bash
+    let numeroGrande = 123456789012345678901234567890n;
+    ```
 3. **Configura las variables de entorno**
 
     Crea un archivo `.env` en la raíz del proyecto y configura las variables necesarias, como la conexión a la base de datos.
