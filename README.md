@@ -16,45 +16,45 @@ Este proyecto es una API REST básica construida con Node.js, Express.js, MySQL,
 
 ## Uso ⚙️
 
-1. **Clona este repositorio**
+1. String → cadenas de texto.
    
     ```bash
     let nombre = "Danna";
     ```
 
-2. **Instala las dependencias**
+2. Number → números enteros o decimales.
 
     ```bash
     let edad = 23;
     let precio = 19.99;
     ```
-2. **Instala las dependencias**
+3. Boolean → valores lógicos (true/false).
 
     ```bash
     let activo = true;
     ```
-2. **Instala las dependencias**
+4. Undefined → variable declarada pero no inicializada.
 
     ```bash
     let x;
    console.log(x);
 
     ```
-2. **Instala las dependencias**
+5. Null → ausencia intencional de valor.
 
     ```bash
     let dato = null;
     ```
 
-2. **Instala las dependencias**
+6. Symbol → identificadores únicos e inmutables.
 
     ```bash
     let id = Symbol("id");
     ```
-2. **Instala las dependencias**
+7. **Instala las dependencias**
 
     ```bash
-    let numeroGrande = 123456789012345678901234567890n;
+    BigInt → números enteros muy grandes.
     ```
 3. **Configura las variables de entorno**
 
