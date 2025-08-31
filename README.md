@@ -51,7 +51,7 @@ Este proyecto es una API REST básica construida con Node.js, Express.js, MySQL,
     ```bash
     let id = Symbol("id");
     ```
-7. **Instala las dependencias**
+7. BigInt → números enteros muy grandes.
 
     ```bash
     BigInt → números enteros muy grandes.
