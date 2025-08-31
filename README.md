@@ -54,7 +54,7 @@ Este proyecto es una API REST básica construida con Node.js, Express.js, MySQL,
 7. BigInt → números enteros muy grandes.
 
     ```bash
-    BigInt → números enteros muy grandes.
+    let numeroGrande = 123456789012345678901234567890n;
     ```
 3. **Configura las variables de entorno**
 
